@@ -15,6 +15,16 @@ dependencies {
     testImplementation(kotlin("test"))
 }
 
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "MainKt"
+    }
+
+    from(configurations.runtimeClasspath.get().map {if (it.isDirectory) it else zipTree(it)})
+
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
 tasks.test {
     useJUnit()
 }
