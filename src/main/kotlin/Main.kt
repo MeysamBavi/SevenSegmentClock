@@ -1,3 +1,5 @@
 fun main() {
-    println("Hello world")
+    for (value in enumValues<SevenSegmentValue>()) {
+        render(value)
+    }
 }
