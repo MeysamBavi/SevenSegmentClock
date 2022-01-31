@@ -22,3 +22,16 @@ enum class SevenSegmentValue(private val value: Byte) {
 
     fun isOn(i: Int) : Boolean = (value.toInt() shr i) and 1 == 1
 }
+
+fun fromInt(int: Int) = when(int) {
+    1 -> SevenSegmentValue.ONE
+    2 -> SevenSegmentValue.TWO
+    3 -> SevenSegmentValue.THREE
+    4 -> SevenSegmentValue.FOUR
+    5 -> SevenSegmentValue.FIVE
+    6 -> SevenSegmentValue.SIX
+    7 -> SevenSegmentValue.SEVEN
+    8 -> SevenSegmentValue.EIGHT
+    9 -> SevenSegmentValue.NINE
+    else -> SevenSegmentValue.EIGHT
+}

@@ -1,5 +1,4 @@
 fun main() {
-    for (value in enumValues<SevenSegmentValue>()) {
-        render(value)
-    }
+    render("1 2 :3   asd 4")
+    readln()
 }

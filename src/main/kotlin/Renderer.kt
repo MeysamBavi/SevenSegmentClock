@@ -1,20 +1,76 @@
-import kotlin.time.Duration.Companion.milliseconds
 
-fun render(value: SevenSegmentValue) : Unit {
+fun render(str: String) : Unit {
+    var index = 0
+    var indexOfColon = -1
+    val segmentList : List<SevenSegmentValue> = str.mapNotNull lambda@{
+        if (it.isDigit()) {
+            index++
+            return@lambda fromInt(it.digitToInt())
+        }
+
+        if (it == ':') {
+            indexOfColon = index
+            index++
+        }
+
+        return@lambda null
+    }
+
+    return render(segmentList, indexOfColon)
+}
+
+fun render(values: List<SevenSegmentValue>, indexOfColon: Int) : Unit {
+    values.forEachIndexed {
+        index, value ->
+
+        if (index == indexOfColon) {
+            print(' ')
+            print(' ')
+        }
+
+        renderTop(value.character(0))
+        print(' ')
+    }
+
+    println()
+
+    values.forEachIndexed {
+        index, value ->
+
+        if (index == indexOfColon) {
+            print(". ")
+        }
+
+        renderMid(value.character(1), value.character(2), value.character(3))
+        print(' ')
+    }
+
+    println()
+
+    values.forEachIndexed {
+        index, value ->
+
+        if (index == indexOfColon) {
+            print(". ")
+        }
+
+        renderMid(value.character(4), value.character(5), value.character(6))
+        print(' ')
+    }
+
+    println()
+}
+
+private fun renderTop(char: Char) : Unit {
     print(' ')
-    print(value.character(0))
+    print(char)
     print(' ')
-    println()
+}
 
-    print(value.character(1))
-    print(value.character(2))
-    print(value.character(3))
-    println()
-
-    print(value.character(4))
-    print(value.character(5))
-    print(value.character(6))
-    println()
+private fun renderMid(char1 : Char, char2 : Char, char3 : Char) : Unit {
+    print(char1)
+    print(char2)
+    print(char3)
 }
 
 fun SevenSegmentValue.character(segment: Int) : Char {
