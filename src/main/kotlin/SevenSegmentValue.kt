@@ -24,6 +24,7 @@ enum class SevenSegmentValue(private val value: Byte) {
 }
 
 fun fromInt(int: Int) = when(int) {
+    0 -> SevenSegmentValue.ZERO
     1 -> SevenSegmentValue.ONE
     2 -> SevenSegmentValue.TWO
     3 -> SevenSegmentValue.THREE

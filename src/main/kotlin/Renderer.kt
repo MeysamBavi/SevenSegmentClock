@@ -1,7 +1,7 @@
 
 fun render(str: String, blinkOn : Boolean = true) : Unit {
     var index = 0
-    var indexOfColon = -1
+    var indicesOfColon = mutableListOf<Int>()
     val segmentList : List<SevenSegmentValue> = str.mapNotNull lambda@{
         if (it.isDigit()) {
             index++
@@ -9,21 +9,21 @@ fun render(str: String, blinkOn : Boolean = true) : Unit {
         }
 
         if (it == ':') {
-            indexOfColon = index
+            indicesOfColon.add(index - indicesOfColon.size)
             index++
         }
 
         return@lambda null
     }
 
-    return render(segmentList, indexOfColon, blinkOn)
+    return render(segmentList, indicesOfColon, blinkOn)
 }
 
-fun render(values: List<SevenSegmentValue>, indexOfColon: Int, blinkOn: Boolean = true) : Unit {
+fun render(values: List<SevenSegmentValue>, indicesOfColon: List<Int>, blinkOn: Boolean = true) : Unit {
     values.forEachIndexed {
         index, value ->
 
-        if (index == indexOfColon) {
+        if (index in indicesOfColon) {
             print(' ')
             print(' ')
         }
@@ -37,7 +37,7 @@ fun render(values: List<SevenSegmentValue>, indexOfColon: Int, blinkOn: Boolean 
     values.forEachIndexed {
         index, value ->
 
-        if (index == indexOfColon) {
+        if (index in indicesOfColon) {
             print(if (blinkOn) ". " else "  ")
         }
 
@@ -50,7 +50,7 @@ fun render(values: List<SevenSegmentValue>, indexOfColon: Int, blinkOn: Boolean 
     values.forEachIndexed {
         index, value ->
 
-        if (index == indexOfColon) {
+        if (index in indicesOfColon) {
             print(if (blinkOn) ". " else "  ")
         }
 
