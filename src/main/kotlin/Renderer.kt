@@ -1,5 +1,5 @@
 
-fun render(str: String) : Unit {
+fun render(str: String, blinkOn : Boolean = true) : Unit {
     var index = 0
     var indexOfColon = -1
     val segmentList : List<SevenSegmentValue> = str.mapNotNull lambda@{
@@ -16,10 +16,10 @@ fun render(str: String) : Unit {
         return@lambda null
     }
 
-    return render(segmentList, indexOfColon)
+    return render(segmentList, indexOfColon, blinkOn)
 }
 
-fun render(values: List<SevenSegmentValue>, indexOfColon: Int) : Unit {
+fun render(values: List<SevenSegmentValue>, indexOfColon: Int, blinkOn: Boolean = true) : Unit {
     values.forEachIndexed {
         index, value ->
 
@@ -38,7 +38,7 @@ fun render(values: List<SevenSegmentValue>, indexOfColon: Int) : Unit {
         index, value ->
 
         if (index == indexOfColon) {
-            print(". ")
+            print(if (blinkOn) ". " else "  ")
         }
 
         renderMid(value.character(1), value.character(2), value.character(3))
@@ -51,7 +51,7 @@ fun render(values: List<SevenSegmentValue>, indexOfColon: Int) : Unit {
         index, value ->
 
         if (index == indexOfColon) {
-            print(". ")
+            print(if (blinkOn) ". " else "  ")
         }
 
         renderMid(value.character(4), value.character(5), value.character(6))
